@@ -4,7 +4,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import pl.jaceksysiak.hibernate.demo.entity.Student;
+import pl.jaceksysiak.hibernate.demo.entity.Instructor;
+import pl.jaceksysiak.hibernate.demo.entity.InstructorDetail;
 
 public class CreateDemo {
 
@@ -13,23 +14,36 @@ public class CreateDemo {
 		// create session factory
 		SessionFactory factory = new Configuration()
 								.configure("hibernate.cfg.xml")
-								.addAnnotatedClass(Student.class)
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
 								.buildSessionFactory();
 		
 		// create session
 		Session session = factory.getCurrentSession();
 		
 		try {			
-			// create a student object
-			System.out.println("Creating new student object...");
-			Student tempStudent = new Student("Jacek", "Sysiak", "jaceksysiak@wp.pl");
+			// create the objects
+			
+			//Instructor tempInstructor = new Instructor("Jacek", "Sysiak", "jaceksysiak@wp.pl");
+			//InstructorDetail tempInstructorDetail = new InstructorDetail("http://jaceksysiak.pl/mojeSzkolenia_onYoutube", "jacek sysiak!!!");		
+			
+			
+			Instructor tempInstructor = new Instructor("Madhu", "Patel", "madhu@luv2code.com");
+			InstructorDetail tempInstructorDetail = new InstructorDetail( "http://www.youtube.com", "Guitar");		
+			
+			// associate the objects
+			tempInstructor.setInstructorDetail(tempInstructorDetail);
 			
 			// start a transaction
 			session.beginTransaction();
 			
-			// save the student object
-			System.out.println("Saving the student...");
-			session.save(tempStudent);
+			// save the instructor
+			//
+			// Note: this will ALSO save the details object
+			// because of CascadeType.ALL
+			//
+			System.out.println("Saving instructor: " + tempInstructor);
+			session.save(tempInstructor);					
 			
 			// commit transaction
 			session.getTransaction().commit();
