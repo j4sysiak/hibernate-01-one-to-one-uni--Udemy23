@@ -27,7 +27,6 @@ public class CreateDemo {
 			//Instructor tempInstructor = new Instructor("Jacek", "Sysiak", "jaceksysiak@wp.pl");
 			//InstructorDetail tempInstructorDetail = new InstructorDetail("http://jaceksysiak.pl/mojeSzkolenia_onYoutube", "jacek sysiak!!!");		
 			
-			
 			Instructor tempInstructor = new Instructor("Madhu", "Patel", "madhu@luv2code.com");
 			InstructorDetail tempInstructorDetail = new InstructorDetail( "http://www.youtube.com", "Guitar");		
 			
