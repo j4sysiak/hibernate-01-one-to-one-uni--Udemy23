@@ -1,5 +1,6 @@
 package pl.jaceksysiak.hibernate.demo;
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -7,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 import pl.jaceksysiak.hibernate.demo.entity.Instructor;
 import pl.jaceksysiak.hibernate.demo.entity.InstructorDetail;
 
-public class CreateDemo {
+public class DeleteDemo {
 
 	public static void main(String[] args) {
 
@@ -22,27 +23,27 @@ public class CreateDemo {
 		Session session = factory.getCurrentSession();
 		
 		try {			
-			// create the objects
-			
-			//Instructor tempInstructor = new Instructor("Jacek", "Sysiak", "jaceksysiak@wp.pl");
-			//InstructorDetail tempInstructorDetail = new InstructorDetail("http://jaceksysiak.pl/mojeSzkolenia_onYoutube", "Hibernate");		
-			
-			Instructor tempInstructor = new Instructor("Madhu", "Patel", "madhu@luv2code.com");
-			InstructorDetail tempInstructorDetail = new InstructorDetail( "http://www.youtube.com", "Guitar");		
-			
-			// associate the objects
-			tempInstructor.setInstructorDetail(tempInstructorDetail);
 			
 			// start a transaction
 			session.beginTransaction();
+
+			// get instructor by primary key / id
+			int theId = 1;
+			Instructor tempInstructor = 
+					session.get(Instructor.class, theId);
 			
-			// save the instructor
-			//
-			// Note: this will ALSO save the details object
-			// because of CascadeType.ALL
-			//
-			System.out.println("Saving instructor: " + tempInstructor);
-			session.save(tempInstructor);					
+			System.out.println("Found instructor: " + tempInstructor);
+			
+			// delete the instructors
+			if (tempInstructor != null) {
+			
+				System.out.println("Deleting: " + tempInstructor);
+				
+				// Note: will ALSO delete associated "details" object
+				// because of CascadeType.ALL
+				//
+				session.delete(tempInstructor);				
+			}
 			
 			// commit transaction
 			session.getTransaction().commit();
@@ -55,3 +56,8 @@ public class CreateDemo {
 	}
 
 }
+
+
+
+
+
